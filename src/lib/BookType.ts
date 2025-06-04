@@ -1,9 +1,9 @@
 export type BookType = {
-    title: string,
-    author?:string,
-    partOfSeries?:boolean,
-    wichPartOfSeries?:number,
-    pages:number,
-    currentPage:number,
-    timesRead?:number
+    BookId: number
+    Name: string,
+    Author_AuthorId?:number,
+    PartOfSeries?:number,
+    PageCount:number,
+    CurrentPage:number,
+    TimesRead?:number
 };

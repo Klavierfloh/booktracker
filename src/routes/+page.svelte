@@ -4,6 +4,10 @@
     import TopBar from "../lib/components/TopBar.svelte";
     import type { BookType } from "$lib/BookType";
 
+    let data = $props()
+    console.log(data)
+    console.log(data.data.item)
+
     let widthBook = $state(80);
     let heightBook = $state(120);
     let margin = 10;
@@ -45,26 +49,7 @@
     });
 
 
-    let books: Array<BookType> = [
-        { title: "test1", pages:100, currentPage: 0},
-        { title: "test2", pages:100, currentPage:0 },
-        { title: "test1", pages:100, currentPage:0 },
-        { title: "test2", pages:100, currentPage:0 },
-        { title: "test1", pages:100, currentPage:0 },
-        { title: "test2", pages:100, currentPage:0 },
-        { title: "test1", pages:100, currentPage:0 },
-        { title: "test2", pages:100, currentPage:0 },
-        { title: "test1", pages:100, currentPage:0 },
-        { title: "test2", pages:100, currentPage:0 },
-        { title: "test1", pages:100, currentPage:0 },
-        { title: "test2", pages:100, currentPage:0 },
-        { title: "test1", pages:100, currentPage:0 },
-        { title: "test2", pages:100, currentPage:0 },
-        { title: "test1", pages:100, currentPage:0 },
-        { title: "test2", pages:100, currentPage:0 },
-        { title: "test1", pages:100, currentPage:0 },
-        { title: "test2", pages:100, currentPage:0 },
-    ];
+    let books: Array<BookType> = data.data.item;
 
     function chunkArray<T>(array: T[], chunkSize: number): T[][] {
         let result: T[][] = [];
@@ -86,7 +71,7 @@
         {#each spalten as spalte}
             <div class="flexInner">
                 {#each spalte as buch}
-                    <Book {margin} width={widthBook} height={heightBook} title={buch.title}
+                    <Book {margin} width={widthBook} height={heightBook} title={buch.Name} id={buch.BookId}
                     ></Book>
                 {/each}
             </div>
