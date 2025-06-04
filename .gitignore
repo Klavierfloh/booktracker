@@ -7,6 +7,8 @@ node_modules
 .wrangler
 /.svelte-kit
 /build
+mydb.sqlite
+/static/uploads/*
 
 # OS
 .DS_Store
