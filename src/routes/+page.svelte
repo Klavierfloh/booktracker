@@ -4,9 +4,20 @@
     import TopBar from "../lib/components/TopBar.svelte";
     import type { BookType } from "$lib/BookType";
 
-    let data = $props()
-    console.log(data)
-    console.log(data.data.item)
+    let books: Array<BookType> = $state([]);
+    async function getData() {
+        const response = await fetch("http://localhost:5173/api/bookList", {
+            method: "GET",
+            headers: {
+                Accept: "application/json",
+                requestType: "getBooksList",
+            },
+        });
+        books = await response.json();
+    }
+    onMount(() => {
+        getData();
+    });
 
     let widthBook = $state(80);
     let heightBook = $state(120);
@@ -19,15 +30,15 @@
         windowWidth = window.innerWidth;
     }
 
-    function onKeyDown(e:KeyboardEvent){
-        console.log(e.key)
-        if (e.key == "+"){
-            widthBook *= 4/5
-            heightBook *= 4/5
+    function onKeyDown(e: KeyboardEvent) {
+        console.log(e.key);
+        if (e.key == "+") {
+            widthBook *= 4 / 5;
+            heightBook *= 4 / 5;
         }
-        if (e.key == "-"){
-            widthBook /= 4/5
-            heightBook /= 4/5
+        if (e.key == "-") {
+            widthBook /= 4 / 5;
+            heightBook /= 4 / 5;
         }
     }
 
@@ -48,9 +59,6 @@
         spalten = chunkArray(books, maxWidthInBooks);
     });
 
-
-    let books: Array<BookType> = data.data.item;
-
     function chunkArray<T>(array: T[], chunkSize: number): T[][] {
         let result: T[][] = [];
         for (let i = 0; i < array.length; i += chunkSize) {
@@ -59,6 +67,7 @@
         return result;
     }
 
+    //svelte-ignore state_referenced_locally
     let spalten: Array<Array<BookType>> = $state(
         chunkArray(books, maxWidthInBooks),
     );
@@ -71,7 +80,12 @@
         {#each spalten as spalte}
             <div class="flexInner">
                 {#each spalte as buch}
-                    <Book {margin} width={widthBook} height={heightBook} title={buch.Name} id={buch.BookId}
+                    <Book
+                        {margin}
+                        width={widthBook}
+                        height={heightBook}
+                        title={buch.Name}
+                        id={buch.BookId}
                     ></Book>
                 {/each}
             </div>
@@ -93,5 +107,3 @@
         flex-direction: column;
     }
 </style>
-
-
