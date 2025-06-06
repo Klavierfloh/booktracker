@@ -1,58 +1,29 @@
 <script lang="ts">
-  import { enhance } from "$app/forms";
+  let imageFile: File | null = null;
 
-  let fileInput: HTMLInputElement;
+  async function uploadImage() {
+    if (!imageFile) return;
 
-  function handleDrop(ev: DragEvent) {
-    ev.preventDefault();
+    const formData = new FormData();
+    formData.append("image", imageFile);
 
-    const files = ev.dataTransfer?.files;
-    if (files && files.length > 0) {
-      console.log('Dropped files:', files);
+    const response = await fetch("/api/image", {
+      method: "POST",
+      body: formData,
+      headers: {
+        requestType: "uploadImage",
+      },
+    });
 
-      const dt = new DataTransfer();
-      for (const file of files) {
-        dt.items.add(file);
-      }
-
-      fileInput.files = dt.files;
-    }
+    const result = await response.json();
+    console.log("Upload response:", result);
   }
 
-  function handleDragOver(ev: DragEvent) {
-    ev.preventDefault(); // Necessary to allow drop
+  function handleFileChange(e: Event) {
+    const target = e.target as HTMLInputElement;
+    imageFile = target.files?.[0] ?? null;
   }
 </script>
-<!--svelte-ignore a11y_no_static_element_interactions-->
 
-<form method="post" use:enhance enctype="multipart/form-data">
-  <div
-    class="dropzone"
-    ondrop={handleDrop}
-    ondragover={handleDragOver}
-  >
-    <div class="group">
-      <label for="file">Upload your file</label>
-      <input
-        type="file"
-        id="file"
-        name="fileToUpload"
-        bind:this={fileInput}
-        accept=".jpg, .jpeg, .png, .webp"
-        required
-      />
-    </div>
-
-    <button type="submit">Submit</button>
-  </div>
-</form>
-
-<style>
-    .dropzone {
-        margin-left: 10%;
-        margin-right: 10%;
-        width: auto;
-        height: 100px;
-        background-color: aquamarine;
-    }
-</style>
+<input type="file" accept="image/*" onchange={handleFileChange} />
+<button onclick={uploadImage}>Upload</button>

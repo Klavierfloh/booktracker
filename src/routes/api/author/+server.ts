@@ -1,4 +1,3 @@
-import { API_KEY } from '$env/static/private'
 import { error } from '@sveltejs/kit';
 
 import db from '$lib/server/db.js'
@@ -13,8 +12,9 @@ export const GET = ({ url, request }) => {
         return new Response(JSON.stringify({message:"Permission Denied"}), {status: 401})
     }
 
-    const stmt = db.prepare('SELECT Author.LastName, Author.FirstName FROM Book, Author WHERE ?= Author.AuthorId');
-    const item = stmt.get(requestedAuthorId);
+    const stmt = db.prepare('SELECT LastName, FirstName FROM Author WHERE AuthorId = ?');
+const item = stmt.get(requestedAuthorId);
+
 
     console.log(item)
 

@@ -47,6 +47,9 @@
 
     }
 
+    let uploadsPath = "../../static/uploads/"
+    let coverName = "standard.png"
+
     onMount(async () => {
         await getData();
         await getAuthor();
@@ -58,7 +61,7 @@
 
 <div class="reihe">
     <img
-        src="./test.png"
+        src={"/src/lib/uploads/"+coverName}
         alt="Hier Buchbild"
         height="500"
         width="100%"

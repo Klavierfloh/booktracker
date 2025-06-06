@@ -9,6 +9,7 @@ node_modules
 /build
 mydb.sqlite
 /static/uploads/*
+/src/lib/uploads/*
 
 # OS
 .DS_Store

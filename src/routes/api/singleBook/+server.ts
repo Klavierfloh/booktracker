@@ -24,3 +24,8 @@ export const GET = ({ url, request }) => {
 
     return new Response(JSON.stringify(item), { status: 200 })
 } 
+
+export const POST = ({request})=>{
+
+    return new Response(JSON.stringify("posted succesfully"), {status:200})
+}

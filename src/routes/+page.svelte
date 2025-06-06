@@ -32,11 +32,11 @@
 
     function onKeyDown(e: KeyboardEvent) {
         console.log(e.key);
-        if (e.key == "+") {
+        if (e.key == "-") {
             widthBook *= 4 / 5;
             heightBook *= 4 / 5;
         }
-        if (e.key == "-") {
+        if (e.key == "+") {
             widthBook /= 4 / 5;
             heightBook /= 4 / 5;
         }
