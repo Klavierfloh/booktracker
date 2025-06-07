@@ -52,11 +52,15 @@
     });
 </script>
 
-<TopBar></TopBar>
-<h1>{book.Name} by {bookAuthor.FirstName} {bookAuthor.LastName}</h1>
 
-<div class="reihe">
-    <div class="imgContainer">
+
+<div class="flex-1/2 align-center justify-center">
+<TopBar ></TopBar>
+<h1 class="text-7xl text-center mb-5 font-bold">{book.Name} by {bookAuthor.FirstName} {bookAuthor.LastName}</h1>
+
+</div>
+<div class="reihe flex">
+    <div class="w-[30vw] ml-20">
         <img
             src={book.Cover
                 ? "/src/lib/uploads/" + book.Cover
@@ -64,12 +68,12 @@
             alt="Hier Buchbild"
         />
     </div>
-    <div class="spalte">
-        <h1>Titel: {book.Name}</h1>
-        <h1>Autor: {bookAuthor.FirstName ?? ""} {bookAuthor.LastName}</h1>
-        <h1>Part of series: {book.PartOfSeries ?? "unknown"}</h1>
-        <h1>gelesen: {book.TimesRead ?? 0}</h1>
-        <h1>aktuelle Seite: {book.CurrentPage} von {book.PageCount}</h1>
+    <div class="spalte text-6xl flex flex-row " >
+        <h1 class="m-2"><div class="font-bold inline"> Titel:</div> {book.Name}</h1>
+        <h1 class="m-2"><div class="font-bold inline">Autor:</div> {bookAuthor.FirstName ?? ""} {bookAuthor.LastName}</h1>
+        <h1 class="m-2"><div class="font-bold inline">Part of series: </div>{book.PartOfSeries ?? "unknown"}</h1>
+        <h1 class="m-2"><div class="font-bold inline">gelesen:</div> {book.TimesRead ?? 0}</h1>
+        <h1 class="m-2"><div class="font-bold inline">aktuelle Seite: </div>{book.CurrentPage} von {book.PageCount}</h1>
     </div>
 </div>
 

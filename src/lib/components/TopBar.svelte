@@ -3,7 +3,7 @@
     import { HomeIcon, PlusIcon } from "@lucide/svelte";
 </script>
 
-<div class="bar">
+<div class="fixed top-1 h-9 bg-green-500 flex-column w-[90%] flex rounded-2xl pl-3 align-center ">
     <!-- svelte-ignore a11y_click_events_have_key_events -->
     <!-- svelte-ignore a11y_no_static_element_interactions -->
     <div
@@ -30,9 +30,6 @@
 <style>
     .bar {
         width: 100%;
-        height: 39px;
-        background-color: green;
-        position: sticky;
         align-items: flex-end;
         display: flex;
         top: 0;

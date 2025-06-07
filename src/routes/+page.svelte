@@ -3,6 +3,7 @@
     import Book from "./Book.svelte";
     import TopBar from "../lib/components/TopBar.svelte";
     import type { BookType } from "$lib/BookType";
+    import "../app.css";
 
     let books: Array<BookType> = $state([]);
     async function getData() {
