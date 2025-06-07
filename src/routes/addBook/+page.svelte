@@ -12,7 +12,7 @@
         partOfSeries: boolean;
         seriesPart?: number;
         pageCount: number;
-        currentPage:number;
+        currentPage: number;
         timesRead: number;
         coverFile?: File | null;
     };
@@ -70,7 +70,29 @@
         uploadBook();
     }
 
+    async function uploadImage() {
+        if (!book.coverFile) return;
+
+        const formData = new FormData();
+        formData.append("image", book.coverFile);
+
+        const response = await fetch("/api/image", {
+            method: "POST",
+            body: formData,
+            headers: {
+                requestType: "uploadImage",
+            },
+        });
+
+        const result = await response.json();
+        console.log("Upload response:", result);
+        return result
+    }
+
     async function uploadBook() {
+        const imageLoaded = await uploadImage()
+        const img_url = await imageLoaded.filename
+        book.coverFile = img_url
         const response = await fetch("http://localhost:5173/api/singleBook", {
             method: "POST",
             headers: {

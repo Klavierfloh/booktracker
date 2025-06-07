@@ -5,5 +5,6 @@ export type BookType = {
     PartOfSeries?:number,
     PageCount:number,
     CurrentPage:number,
-    TimesRead?:number
+    TimesRead?:number,
+    Cover?:string,
 };

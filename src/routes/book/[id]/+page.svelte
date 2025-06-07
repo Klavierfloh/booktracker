@@ -4,10 +4,9 @@
     import type { BookType } from "$lib/BookType";
     import type { AuthorType } from "$lib/AuthorType";
     import { onMount } from "svelte";
-    
-    let bookId = page.params.id;
-    let bookAuthor = $state({}) as AuthorType
 
+    let bookId = page.params.id;
+    let bookAuthor = $state({}) as AuthorType;
 
     let book: BookType = $state({
         BookId: -9999,
@@ -15,8 +14,6 @@
         PageCount: -1,
         CurrentPage: -1,
     });
-
-
 
     async function getData() {
         const response = await fetch(
@@ -43,12 +40,11 @@
                 },
             },
         );
-        bookAuthor = await response.json()
-
+        bookAuthor = await response.json();
     }
 
-    let uploadsPath = "../../static/uploads/"
-    let coverName = "standard.png"
+    let uploadsPath = "../../static/uploads/";
+    let coverName = "standard.png";
 
     onMount(async () => {
         await getData();
@@ -60,13 +56,14 @@
 <h1>{book.Name} by {bookAuthor.FirstName} {bookAuthor.LastName}</h1>
 
 <div class="reihe">
-    <img
-        src={"/src/lib/uploads/"+coverName}
-        alt="Hier Buchbild"
-        height="500"
-        width="100%"
-        style="background-color: rebeccapurple; margin-top:30px"
-    />
+    <div class="imgContainer">
+        <img
+            src={book.Cover
+                ? "/src/lib/uploads/" + book.Cover
+                : "/src/lib/uploads/standard.png"}
+            alt="Hier Buchbild"
+        />
+    </div>
     <div class="spalte">
         <h1>Titel: {book.Name}</h1>
         <h1>Autor: {bookAuthor.FirstName ?? ""} {bookAuthor.LastName}</h1>
@@ -77,13 +74,18 @@
 </div>
 
 <style>
+    .imgContainer {
+        width:30vw; 
+    }
+    img {
+        max-width: 100%;
+    }
     .spalte {
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        align-content: center;
-        width: 100%;
+        width: 80%;
     }
     .reihe {
         display: flex;

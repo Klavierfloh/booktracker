@@ -33,12 +33,12 @@ db.prepare(`
 
 db.prepare(`
   INSERT OR IGNORE INTO Book (BookId, PartOfSeries, PageCount, TimesRead, Cover, Name, CurrentPage, Author_AuthorId)
-  VALUES (1, 0, 328, 2, 'cover.jpg', '1984', 10, 1);
+  VALUES (1, 0, 328, 2, '', '1984', 10, 1);
 `).run();
 
 db.prepare(`
   INSERT OR IGNORE INTO Book (BookId, PartOfSeries, PageCount, TimesRead, Cover, Name, CurrentPage, Author_AuthorId)
-  VALUES (2, 3, 4634, 0, 'nextCover.jpg', 'testbuch', 10, 1);`).run();
+  VALUES (2, 3, 4634, 0, '', 'testbuch', 10, 1);`).run();
 
 const highestBook = db.prepare("SELECT * FROM Book ORDER BY BookId DESC LIMIT 1").get() as BookType
 

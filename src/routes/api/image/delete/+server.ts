@@ -20,7 +20,7 @@ export const DELETE = async ({ url, request }) => {
         console.log(err)
     })
 
-    return new Response(JSON.stringify({ message: "Image deleted successfully" }), { status: 200 });
+    return new Response(JSON.stringify({ message: "Image deleted successfully", url:imageName}), { status: 200 });
   } catch (err) {
     console.error("Failed to delete Image:", err);
     throw error(500, "Internal Server Error");

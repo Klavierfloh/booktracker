@@ -24,7 +24,7 @@ export const GET = ({ url, request }) => {
     const stmt = db.prepare('SELECT * FROM Book WHERE BookId=' + requestedID);
     const item = stmt.get();
 
-
+    console.log(item)
     if (!item) {
         throw error(404, `Book not found: ` + requestedID);
     }
