@@ -12,6 +12,7 @@
         partOfSeries: boolean;
         seriesPart?: number;
         pageCount: number;
+        currentPage:number;
         timesRead: number;
         coverFile?: File | null;
     };
@@ -21,6 +22,7 @@
         author: "",
         partOfSeries: false,
         seriesPart: undefined,
+        currentPage: 0,
         pageCount: 0,
         timesRead: 0,
         coverFile: null,
@@ -33,8 +35,8 @@
         book.coverFile = target.files?.[0] ?? null;
     }
 
-    function submitBook(e:Event) {
-         e.preventDefault();
+    async function submitBook(e: Event) {
+        e.preventDefault();
         const [firstName, ...rest] = book.author.trim().split(" ");
         const lastName = rest.join(" ");
         const authTypeChek: AuthorType = {
@@ -64,7 +66,19 @@
             }
         }
 
-        console.log("Saving book:", $state.snapshot(book));
+        console.log("Saving book:", JSON.stringify($state.snapshot(book)));
+        uploadBook();
+    }
+
+    async function uploadBook() {
+        const response = await fetch("http://localhost:5173/api/singleBook", {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                requestType: "getAuthorList",
+            },
+            body: JSON.stringify(book),
+        });
     }
 
     async function getAuthors() {
@@ -93,7 +107,7 @@
 </datalist>
 
 <div style="display: flex; flex-direction:row; align-content:center; flex-">
-    <form class="form">
+    <form class="form" onsubmit={submitBook}>
         <input
             type="text"
             required
@@ -153,7 +167,7 @@
             <input type="file" accept="image/*" onchange={handleFileChange} />
         </div>
 
-        <button type="submit" onsubmit={submitBook}>Hinzufügen</button>
+        <button type="submit">Hinzufügen</button>
     </form>
 
     {#if addNewAuthor}
@@ -161,7 +175,7 @@
             <span>Hier später Autor hinzufügen</span>
         </div>
     {/if}
-    </div>
+</div>
 
 <style>
     .form {

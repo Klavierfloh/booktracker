@@ -1,5 +1,7 @@
 import Database from 'better-sqlite3';
 const db = new Database('mydb.sqlite');
+import type { BookType } from '$lib/BookType';
+import { highestBookId }  from '$lib/store' ;
 
 // Schema
 db.exec(`
@@ -37,5 +39,13 @@ db.prepare(`
 db.prepare(`
   INSERT OR IGNORE INTO Book (BookId, PartOfSeries, PageCount, TimesRead, Cover, Name, CurrentPage, Author_AuthorId)
   VALUES (2, 3, 4634, 0, 'nextCover.jpg', 'testbuch', 10, 1);`).run();
+
+const highestBook = db.prepare("SELECT * FROM Book ORDER BY BookId DESC LIMIT 1").get() as BookType
+
+const highestBookId_b = highestBook.BookId;
+
+console.log("Highest BookId:", highestBookId_b);
+
+highestBookId.set(highestBookId_b)
 
 export default db;

@@ -1,69 +1,70 @@
-<script>
+<script lang="ts">
     import { goto } from "$app/navigation";
+    import { HomeIcon, PlusIcon } from "@lucide/svelte";
 </script>
 
 <div class="bar">
     <!-- svelte-ignore a11y_click_events_have_key_events -->
     <!-- svelte-ignore a11y_no_static_element_interactions -->
     <div
-        class="menuButton"
+        class="button"
         onclick={() => {
             goto("/");
         }}
     >
-        <h1>H</h1>
+        <HomeIcon />
     </div>
 
     <!-- svelte-ignore a11y_click_events_have_key_events -->
     <!-- svelte-ignore a11y_no_static_element_interactions -->
     <div
-        class="addBookButton"
+        class="button"
         onclick={() => {
             goto("/addBook");
         }}
     >
-        <h2>Add</h2>
+        <PlusIcon />
     </div>
 </div>
 
 <style>
     .bar {
         width: 100%;
-        height: 35px;
+        height: 39px;
         background-color: green;
         position: sticky;
-        align-items:flex-end;
+        align-items: flex-end;
         display: flex;
         top: 0;
     }
-    .menuButton {
-        background-color: wheat;
+
+    .button {
         display: flex;
-        align-items: center;
         justify-content: center;
-        x: 100% - 35px;
-        y: 0;
-        width: 35px;
-        height: 100%;
-        margin-right: 20px;
-
-    }
-    .menuButton:hover {
-        background-color: white;
-    }
-
-    .addBookButton {
-        background-color: wheat;
-        display: flex;
         align-items: center;
-        justify-content: center;
-        x: 100% - 35px;
-        y: 0;
         width: 35px;
-        height: 100%;
-
+        height: 35px;
+        max-width: 100%;
+        max-height: 100%;
+        padding: 0;
+        font-size: 12px;
+        background-color: transparent;
+        border: 2px solid black; /* Bootstrap Primary */
+        color: red;
+        cursor: pointer;
+        border-radius: 4px;
+        transition:
+            background-color 0.3s,
+            color 0.3s;
     }
-    .addBookButton:hover {
-        background-color: white;
+
+    .button:hover {
+        background-color: #0d6efd;
+        color: white;
+    }
+
+    .button:focus {
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.5);
     }
 </style>
